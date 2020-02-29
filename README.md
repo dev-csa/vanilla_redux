@@ -133,7 +133,25 @@ reduce함수로 state를 변경하려고 할 때 사용하는 것
     };
 
     countStore.subscribe(onChange);   //state 변화를 감지하는 함수 = subscribe
-````
+```
 
+## 2.0 vanilla toDo > redux 사용해서 바꾸기 
 
+## 2.1 State Mutation
+***Never mutate state !!!!!!!***
+기존 state를 변경시키진 말고, 
+기존 state를 변경해서 새로 만들어라?
+
+```js
+const reducer = function(state = [], action) {
+    switch(action.type){
+        case ADD_TODO:
+            return [...state, {text: action.text}];   // state 변경할때, 기존거 건들지 말고 붙여서~ 
+        case DELETE_TODO:
+            return [];
+        default:
+            return state;
+    }
+}
+```
 
