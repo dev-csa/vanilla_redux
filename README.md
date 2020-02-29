@@ -139,7 +139,7 @@ reduce함수로 state를 변경하려고 할 때 사용하는 것
 
 ## 2.1 State Mutation
 ***Never mutate state !!!!!!!***
-기존 state를 변경시키진 말고, 
+기존 state를 변형시키진 말고, (=state 원형을 파괴하지 말아라!! )
 기존 state를 변경해서 새로 만들어라?
 
 ```js
@@ -154,4 +154,23 @@ const reducer = function(state = [], action) {
     }
 }
 ```
+
+# 2.2 - 2.3 Delete To Do
+state mutaion을 피하기 위해서 filter() 를 사용 해서 delete 작업을 하자
+```js
+const reducer = function(state = [], action) {
+    switch(action.type){
+        case ADD_TODO:
+            return [{ text: action.text, id: Date.now() }, ...state];
+        case DELETE_TODO:
+            return state.filter(toDo => toDo !== action.id);
+        default:
+            return state;
+    }
+}
+```
+
+`return state.filter(toDo => toDo.id !== action.id);`
+전달받은 id값이 아닌 toDo 항목들만 통과시켜서 새로운 배열을 만들어줌
+fileter 함수 사용 
 
